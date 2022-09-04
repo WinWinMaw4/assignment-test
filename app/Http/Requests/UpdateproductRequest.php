@@ -27,14 +27,14 @@ class UpdateproductRequest extends FormRequest
             "name"=>'required|unique:products,name,'.$this->route('product')->id.'|min:2|max:50',
             "category"=>'required',
             "sub_category"=>'required',
-            "addOn"=>'nullable',//null
+            "addOn"=>'required',//null
             'highlight'=>'required|max:100',
             'productCode'=>'required',
             'ordering'=>'nullable|max:100',//nul
-            'original_price'=>'required',
+            'original_price'=>'required|numeric',
             'min_order'=>'required|min:1',
             'max_order'=>'required|min:1',
-            'product_unit_value'=>'required',
+            'product_unit_value'=>'required|numeric',
             'prd_unit'=>'required',
             'search_keyword'=>'required',
             'description'=>'required|min:3|max:500',

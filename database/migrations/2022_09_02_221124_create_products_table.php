@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->foreignId('category_id');
             $table->foreignId('sub_category_id')->nullable();
-            $table->string('brand_id')->nullable();
+            $table->foreignId('brand_id')->nullable();
             $table->string('product_highLight');
             $table->string('product_code');
             $table->string('ordering')->nullable();
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->float('original_price');
             $table->integer('min_order');
             $table->integer('max_order');
-            $table->string('product_unit_value');
+            $table->float('product_unit_value');
             $table->string('prd_unit');
             $table->string('search_keyword');//search||Tab keyword
             $table->text('description');

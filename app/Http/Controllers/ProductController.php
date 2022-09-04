@@ -7,6 +7,8 @@ use App\Http\Requests\StoreproductRequest;
 use App\Http\Requests\UpdateproductRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -17,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = product::all();
+        $products = product::paginate(20);
 //        dump($products);
         return view('products.index',[
             'products'=>$products,
@@ -42,6 +44,32 @@ class ProductController extends Controller
      */
     public function store(StoreproductRequest $request)
     {
+//        $validation = Validator::make($request->all(),[
+//            "name"=>'required|min:2',
+//            "category"=>'required',
+//            "sub_category"=>'required',
+//            "addOn"=>'nullable',//null
+//            'highlight'=>'required|max:100',
+//            'productCode'=>'required',
+//            'ordering'=>'nullable|max:100',//nul
+//            'original_price'=>'required',
+//            'min_order'=>'required|min:1',
+//            'max_order'=>'required|min:1',
+//            'product_unit_value'=>'required',
+//            'prd_unit'=>'required',
+//            'search_keyword'=>'required',
+//            'description'=>'required|min:3|max:500',
+//            'photo'=>'required|file|mimes:jpeg,png|max:5000'
+//        ]);
+////        $errors = $validation->errors();
+//        if($validation->fails()){
+//            return response()->json([
+//                "status" => 'fails',
+//                "errors"=>$validation->errors(),
+//            ]);
+//        }
+
+//        return $request;
 
         DB::beginTransaction();
 
@@ -49,12 +77,13 @@ class ProductController extends Controller
 
             if($request->hasFile('photo')){
 //                $newName = "photo_".uniqid().".".$request->file('photo')->extension();
-                $newName = time().'.'.$request->file('photo')->extension();
+                $newName = time().'_'.$request->file('photo')->getClientOriginalName();
                 $request->file('photo')->storeAs("public/photo",$newName);
 
             }else{
                 $newName = null;
             }
+
 
             $newProduct = new product();
             $newProduct->name = ucwords($request->name);
@@ -62,7 +91,7 @@ class ProductController extends Controller
             $newProduct->sub_category_id = $request->sub_category;
             $newProduct->brand_id = $request->addOn;
             $newProduct->product_highLight = $request->highlight;
-            $newProduct->product_code = $request->productCode;
+            $newProduct->product_code = Str::upper($request->productCode);
             $newProduct->ordering = $request->ordering;
             $newProduct->ingredient = $request->ingredient;
             $newProduct->nutrient = $request->nutrient;
@@ -125,6 +154,7 @@ class ProductController extends Controller
      */
     public function update(UpdateproductRequest $request, product $product)
     {
+//        return $request;
         DB::beginTransaction();
 
         try{
@@ -132,9 +162,9 @@ class ProductController extends Controller
             if($request->hasFile('photo')){
 
                 //            delete old photo
-                Storage::delete("public/photo/".$product->photo);
+                Storage::delete("public/photo/".$product->image);
 
-                $newName = time().'.'.$request->file('photo')->extension();
+                $newName = time().'_'.$request->file('photo')->getClientOriginalName();
                 $request->file('photo')->storeAs("public/photo",$newName);
             }else{
                 $newName = null;

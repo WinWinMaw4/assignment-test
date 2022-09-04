@@ -9,6 +9,15 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+{{--        <link  href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.css"  rel="stylesheet">--}}
+
+{{--        <script  src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.js"></script>--}}
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    @yield('head')
+
+
+
 
         <!-- Scripts -->
         @vite(['resources/scss/app.scss', 'resources/js/app.js'])
@@ -34,8 +43,13 @@
            </main>
           </div>
        </div>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" ></script>
 
-<script>
+       <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+       <script>
+
     let delBtn = document.getElementsByClassName('del-btn');
     for(let i=0; i<= delBtn.length ; i++){
         delBtn[i].addEventListener('click',function (){
@@ -85,6 +99,57 @@
            </script>
        @endif
 
+
+
+{{-- axios --}}
+{{--       <script>--}}
+{{--           //axios post--}}
+{{--           let productCreateForm = document.getElementById('productCreateForm');--}}
+{{--           productCreateForm.addEventListener('submit',function (e){--}}
+{{--               e.preventDefault();--}}
+
+{{--               let formData = new FormData(productCreateForm);--}}
+{{--               axios.post(productCreateForm.getAttribute('action'),formData).then(function (response){--}}
+{{--                   console.log(response.data.status)--}}
+{{--                   if(response.data.status == 'success'){--}}
+{{--                       console.log(response.data.info)--}}
+
+{{--                   }else if(response.data.status == 'fails'){--}}
+
+{{--                       alert(response.data.status);--}}
+{{--                       //errors--}}
+{{--                       //     document.querySelector('.error').innerHTML = JSON.stringify(response.data.errors);--}}
+
+{{--                   }--}}
+{{--               })--}}
+{{--           });--}}
+{{--       </script>--}}
+
+
+{{--       dorp zone script--}}
+       <script>
+           let CSRF_TOKEN = document.querySelector("meta[name='csrf-token']").getAttribute('content');
+
+           Dropzone.autoDiscover = false;
+           let myDropzoen = new Dropzone('.dropzone',{
+               maxFilesize: 2,//2mb
+               acceptFiles:'.jpeg,.jpg,.png'
+           });
+
+           myDropzoen.on('sending',function (file,xhr,formData){
+               formData.append('_token',CSRF_TOKEN);
+               console.log(hello);
+           });
+
+           myDropzoen.on('success',function (file,response){
+               if(response.success == 0 ){
+                   //Error
+                   alert(response.error);
+               }else{
+                   console.log(response);
+               }
+           });
+       </script>
        @stack('scripts')
 
     </body>

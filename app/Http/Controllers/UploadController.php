@@ -42,7 +42,8 @@ class UploadController extends Controller
             $data['error']=$validator->errors()->first('file');//error response
         }else{
             $file = $request->file('file');
-            $filename = time().'_'.$file->getClientOriginalName();
+            $filename = $file;
+//            $filename = time().'_'.$file->getClientOriginalName();
 
 //            //file upload location
 //            $location = 'files';
@@ -50,7 +51,7 @@ class UploadController extends Controller
 //            //uploadfiles
 //            $file->move($location,$filename);
 
-            $request->file('file')->storeAs("public/photo",$filename);
+//            $request->file('file')->storeAs("public/photo",$filename);
 
 
             //Response

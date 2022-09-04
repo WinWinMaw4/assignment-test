@@ -24,21 +24,23 @@ class StoreproductRequest extends FormRequest
     public function rules()
     {
         return [
-            "name"=>'required|min:2',
+            "name"=>'required|unique:products,name|min:2|max:50',
             "category"=>'required',
             "sub_category"=>'required',
-            "addOn"=>'nullable',//null
+            "addOn"=>'required',//null
             'highlight'=>'required|max:100',
-            'productCode'=>'required',
+            'productCode'=>'required|unique:products,product_code',
             'ordering'=>'nullable|max:100',//nul
-            'original_price'=>'required',
+            'original_price'=>'required|numeric',
             'min_order'=>'required|min:1',
             'max_order'=>'required|min:1',
-            'product_unit_value'=>'required',
+            'product_unit_value'=>'required|numeric',
             'prd_unit'=>'required',
             'search_keyword'=>'required',
             'description'=>'required|min:3|max:500',
-            'photo'=>'required|file|mimes:jpeg,png|max:5000'
+            'photo'=>'required|file|mimes:jpeg,png|max:5000',
+//                'photo'=>'required',
+
 
         ];
     }

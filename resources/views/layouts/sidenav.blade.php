@@ -15,11 +15,11 @@
             </sapn>
             <i class="bi bi-caret-down-fill"></i>
         </a>
-        <div class="collapse my-1" id="entry">
-            <a class="w-100 btn btn-light d-flex justify-content-between align-items-center text-black bg-white" data-bs-toggle="collapse" href="#products" >
-                <sapn>
+        <div class="collapse my-1 {{request()->routeIs('products.index') ? 'show':''}} " id="entry">
+            <a class="w-100 btn btn-light d-flex justify-content-between align-items-center text-black bg-white" href="{{route('products.index')}}" >
+                <span class="ps-2">
                     <i class="bi bi-caret-right-fill me-2"></i>Products
-                </sapn>
+                </span>
             </a>
         </div>
     </div>
