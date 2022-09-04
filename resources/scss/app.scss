@@ -1,0 +1,79 @@
+$dark: #2f2f2f;
+$success: #2ba92b;
+
+$border-radius: .25rem;
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+@import "../../node_modules/animate.css/animate.min.css";
+@import "../../node_modules/sweetalert2/src/sweetalert2";
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+#start{
+    background-image: url("https://apicms.thestar.com.my/uploads/images/2020/01/06/475697.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: #552b03;
+    background-blend-mode: lighten;
+}
+
+.bd-slider{
+    width: 15%;
+    position: fixed;
+    z-index:1000;
+
+    top: 0rem;
+    height: 100vh;
+    //height: calc(100vh - 6rem);
+    //padding-left: .25rem;
+    //margin-left: -.25rem;
+    //overflow-y: auto;
+}
+//.btn:active:focus{
+//    border: none;
+//}
+.form-select{
+    color: #4a5568;
+}
+.addon > .dropdown-toggle::after{
+    position: absolute;
+    right: 3%;
+}
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+    .loginCard{
+        width: 75%;
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+    .loginCard{
+        width: 50%;
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+    .loginCard{
+        width: 35%;
+    }
+}
+
+// X-Large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+    .loginCard{
+        width: 25%;
+    }
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@media (min-width: 1400px) {
+
+
+}
